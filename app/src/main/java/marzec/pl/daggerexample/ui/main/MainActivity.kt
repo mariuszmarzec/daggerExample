@@ -1,7 +1,8 @@
-package marzec.pl.daggerexample
+package marzec.pl.daggerexample.ui.main
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import marzec.pl.daggerexample.R
 
 class MainActivity : AppCompatActivity() {
 
