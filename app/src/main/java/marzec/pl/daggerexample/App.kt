@@ -13,7 +13,7 @@ class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        userName = DaggerAppComponent.create().getUserName()
+        DaggerAppComponent.create().inject(this)
 
         Log.d("DaggerExampleApp", userName.text)
     }

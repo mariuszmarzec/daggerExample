@@ -9,6 +9,5 @@ import marzec.pl.daggerexample.App
 @Component()
 interface AppComponent {
 
-    fun getUserName() : UserName
-
+    fun inject(app: App)
 }
