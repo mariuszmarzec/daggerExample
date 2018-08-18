@@ -32,4 +32,10 @@ class AppModule {
         Log.d("DaggerExampleApp", "provides surname")
         return "Kowalski"
     }
+
+    @Provides
+    fun provideUserName(@Named("Name") name: String,
+                        @Named("Surname") surname: String): UserName {
+        return UserName(name, surname)
+    }
 }
