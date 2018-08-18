@@ -1,35 +1,35 @@
 package marzec.pl.daggerexample.di
 
+import android.util.Log
 import dagger.Component
-import dagger.MembersInjector
 import dagger.Module
 import dagger.Provides
 import marzec.pl.daggerexample.App
-import java.lang.annotation.Documented
+import marzec.pl.daggerexample.ui.main.MainActivity
+import javax.inject.Named
 import javax.inject.Qualifier
 
 @Component(modules = [AppModule::class])
 interface AppComponent {
 
     fun inject(app: App)
+    fun inject(app: MainActivity)
 }
 
 @Module
 class AppModule {
 
-    @Name
+    @Named("Name")
     @Provides
-    fun provideName() = "Jan"
+    fun provideName(): String {
+        Log.d("DaggerExampleApp", "provides name")
+        return "Jan"
+    }
 
-    @Surname
+    @Named("Surname")
     @Provides
-    fun provideSurname() = "Kowalski"
+    fun provideSurname(): String {
+        Log.d("DaggerExampleApp", "provides surname")
+        return "Kowalski"
+    }
 }
-
-@Qualifier
-@Retention(AnnotationRetention.RUNTIME)
-annotation class Name
-
-@Qualifier
-@Retention(AnnotationRetention.RUNTIME)
-annotation class Surname

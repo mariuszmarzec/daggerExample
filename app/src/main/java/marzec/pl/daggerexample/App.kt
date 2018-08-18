@@ -8,13 +8,9 @@ import javax.inject.Inject
 
 class App : Application() {
 
-    @Inject
-    lateinit var userName: UserName
+    val appComponent = DaggerAppComponent.create()
 
     override fun onCreate() {
         super.onCreate()
-        DaggerAppComponent.create().inject(this)
-
-        Log.d("DaggerExampleApp", userName.text)
     }
 }
