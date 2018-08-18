@@ -1,6 +1,10 @@
 package marzec.pl.daggerexample.di
 
-class UserName {
+class UserName constructor(
+        private val name: String,
+        private val surname: String
+) {
 
-    val text = "Mariusz Marzec"
+    val text
+        get() = "$name $surname"
 }

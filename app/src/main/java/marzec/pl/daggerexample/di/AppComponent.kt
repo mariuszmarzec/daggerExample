@@ -15,6 +15,7 @@ interface AppComponent {
 @Module
 class AppModule {
 
-    @Provides
-    fun provideUserName() : UserName = UserName()
+    fun provideName() = "Jan"
+
+    fun provideSurname() = "Kowalski"
 }
