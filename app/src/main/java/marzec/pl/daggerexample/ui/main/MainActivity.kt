@@ -9,11 +9,12 @@ import marzec.pl.daggerexample.App
 import marzec.pl.daggerexample.R
 import marzec.pl.daggerexample.di.UserName
 import javax.inject.Inject
+import javax.inject.Provider
 
 class MainActivity : AppCompatActivity() {
 
     @Inject
-    lateinit var userName: Lazy<UserName>
+    lateinit var userName: Provider<UserName>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
