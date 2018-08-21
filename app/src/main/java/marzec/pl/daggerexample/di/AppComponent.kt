@@ -6,15 +6,18 @@ import dagger.Module
 import dagger.Provides
 import marzec.pl.daggerexample.App
 import marzec.pl.daggerexample.ui.main.MainActivity
-import marzec.pl.daggerexample.ui.main.NickName
 import javax.inject.Named
-import javax.inject.Qualifier
-import dagger.BindsOptionalOf
 
 
 
-@Component(modules = [AppModule::class, NickNameModule::class])
+@Component(modules = [AppModule::class])
 interface AppComponent {
+
+    @Component.Builder
+    interface Builder {
+        fun appModule(appModule: AppModule): Builder
+        fun build() : AppComponent
+    }
 
     fun inject(app: App)
     fun inject(app: MainActivity)
@@ -43,12 +46,4 @@ class AppModule {
         return UserName(name, surname)
     }
 
-    // uncomment to make to provide optional
-    // @Provides fun provideNickName() = NickName()
-}
-
-@Module
-abstract class NickNameModule {
-    @BindsOptionalOf
-    internal abstract fun bindNickName(): NickName
 }
