@@ -12,7 +12,7 @@ import javax.inject.Inject
 class MainActivity : AppCompatActivity() {
 
     @Inject
-    lateinit var userName: UserName
+    lateinit var appName: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
         (application as App).appComponent.inject(this)
 
         helloWorldButton.setOnClickListener {
-            Toast.makeText(this, userName.text, Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, appName, Toast.LENGTH_SHORT).show()
         }
     }
 }

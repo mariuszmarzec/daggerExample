@@ -1,22 +1,24 @@
 package marzec.pl.daggerexample.di
 
+import android.app.Application
+import android.content.Context
 import android.util.Log
-import dagger.Component
-import dagger.Module
-import dagger.Provides
+import dagger.*
 import marzec.pl.daggerexample.App
+import marzec.pl.daggerexample.R
 import marzec.pl.daggerexample.ui.main.MainActivity
 import javax.inject.Named
 
 
-
-@Component(modules = [AppModule::class])
+@Component(modules = [AppModule::class, ApplicationModule::class])
 interface AppComponent {
 
     @Component.Builder
     interface Builder {
+        @BindsInstance
+        fun application(application: Application): Builder
         fun appModule(appModule: AppModule): Builder
-        fun build() : AppComponent
+        fun build(): AppComponent
     }
 
     fun inject(app: App)
@@ -24,26 +26,17 @@ interface AppComponent {
 }
 
 @Module
+abstract class ApplicationModule {
+    @Binds
+    abstract fun bindContext(application: Application): Context
+}
+
+@Module
 class AppModule {
 
-    @Named("Name")
     @Provides
-    fun provideName(): String {
-        Log.d("DaggerExampleApp", "provides name")
-        return "Jan"
+    fun provideAppName(context: Context): String {
+        return context.getString(R.string.app_name)
     }
-
-    @Named("Surname")
-    @Provides
-    fun provideSurname(): String {
-        Log.d("DaggerExampleApp", "provides surname")
-        return "Kowalski"
-    }
-
-    @Provides
-    fun provideUserName(@Named("Name") name: String,
-                        @Named("Surname") surname: String): UserName {
-        return UserName(name, surname)
-    }
-
 }
+
