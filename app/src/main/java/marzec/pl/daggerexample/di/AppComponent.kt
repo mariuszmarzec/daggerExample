@@ -8,21 +8,24 @@ import marzec.pl.daggerexample.App
 import marzec.pl.daggerexample.R
 import marzec.pl.daggerexample.ui.main.MainActivity
 import javax.inject.Named
+import dagger.Subcomponent
 
 
-@Component(modules = [AppModule::class, ApplicationModule::class])
+
+
+@Component(modules = [ApplicationModule::class])
 interface AppComponent {
+
+    fun mainActivityComponent(): MainActivityComponent.Builder
 
     @Component.Builder
     interface Builder {
         @BindsInstance
         fun application(application: Application): Builder
-        fun appModule(appModule: AppModule): Builder
         fun build(): AppComponent
     }
 
     fun inject(app: App)
-    fun inject(app: MainActivity)
 }
 
 @Module
@@ -31,12 +34,23 @@ abstract class ApplicationModule {
     abstract fun bindContext(application: Application): Context
 }
 
+@Subcomponent(modules = [MainActivityModule::class])
+interface MainActivityComponent {
+
+    @Subcomponent.Builder
+    interface Builder {
+        fun build(): MainActivityComponent
+    }
+
+    fun inject(app: MainActivity)
+}
+
 @Module
-class AppModule {
+class MainActivityModule {
 
     @Provides
     fun provideAppName(context: Context): String {
         return context.getString(R.string.app_name)
     }
-}
 
+}

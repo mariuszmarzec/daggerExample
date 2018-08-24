@@ -6,6 +6,7 @@ import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
 import marzec.pl.daggerexample.App
 import marzec.pl.daggerexample.R
+import marzec.pl.daggerexample.di.MainActivityComponent
 import marzec.pl.daggerexample.di.UserName
 import javax.inject.Inject
 
@@ -18,7 +19,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        (application as App).appComponent.inject(this)
+        (application as App).appComponent
+                .mainActivityComponent()
+                .build()
+                .inject(this)
 
         helloWorldButton.setOnClickListener {
             Toast.makeText(this, appName, Toast.LENGTH_SHORT).show()
