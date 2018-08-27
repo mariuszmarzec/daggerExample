@@ -1,56 +1,53 @@
 package marzec.pl.daggerexample.di
 
-import android.app.Application
-import android.content.Context
-import android.util.Log
-import dagger.*
-import marzec.pl.daggerexample.App
-import marzec.pl.daggerexample.R
-import marzec.pl.daggerexample.ui.main.MainActivity
-import javax.inject.Named
+import dagger.Component
+import dagger.Module
+import dagger.Provides
 import dagger.Subcomponent
+import java.util.*
+import javax.inject.Named
+import javax.inject.Scope
+import javax.inject.Singleton
 
-
-
-
-@Component(modules = [ApplicationModule::class])
+//@Singleton
+@Component(modules = [AppModule::class])
 interface AppComponent {
 
-    fun mainActivityComponent(): MainActivityComponent.Builder
+    @Named("Application")
+    fun getInt(): Int
 
-    @Component.Builder
-    interface Builder {
-        @BindsInstance
-        fun application(application: Application): Builder
-        fun build(): AppComponent
-    }
-
-    fun inject(app: App)
+    fun mainActivityComponent(): MainActivityComponent
 }
 
 @Module
-abstract class ApplicationModule {
-    @Binds
-    abstract fun bindContext(application: Application): Context
+class AppModule {
+
+    @Provides
+    @Named("Application")
+//    @Singleton
+    fun provideInt(): Int = randomInt()
 }
 
+//@ActivityScope
 @Subcomponent(modules = [MainActivityModule::class])
 interface MainActivityComponent {
 
-    @Subcomponent.Builder
-    interface Builder {
-        fun build(): MainActivityComponent
-    }
-
-    fun inject(app: MainActivity)
+    @Named("Activity")
+    fun getInt(): Int
 }
 
 @Module
 class MainActivityModule {
 
     @Provides
-    fun provideAppName(context: Context): String {
-        return context.getString(R.string.app_name)
-    }
-
+    @Named("Activity")
+//    @ActivityScope
+    fun provideInt(): Int = randomInt()
 }
+
+@Scope
+@Retention(AnnotationRetention.RUNTIME)
+annotation class ActivityScope
+
+
+fun randomInt() = Random().nextInt(1000)
