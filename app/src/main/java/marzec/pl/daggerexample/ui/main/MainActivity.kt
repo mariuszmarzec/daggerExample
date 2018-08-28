@@ -15,13 +15,19 @@ class MainActivity : AppCompatActivity() {
 
         val appComponent = (application as App).appComponent
         val mainActivityComponent = appComponent.mainActivityComponent()
+        val mainActivityComponent2 = appComponent.mainActivityComponent()
 
         singletonButton.setOnClickListener {
-            Toast.makeText(this, appComponent.getInt().toString(), Toast.LENGTH_SHORT).show()
+            //TODO uncomment getInt() for cache object in app component
+//            Toast.makeText(this, appComponent.getInt().toString(), Toast.LENGTH_SHORT).show()
         }
 
         activityScopeButton.setOnClickListener {
             Toast.makeText(this, mainActivityComponent.getInt().toString(), Toast.LENGTH_SHORT).show()
+        }
+
+        secondComponentButton.setOnClickListener {
+            Toast.makeText(this, mainActivityComponent2.getInt().toString(), Toast.LENGTH_SHORT).show()
         }
     }
 }
