@@ -1,11 +1,8 @@
 package marzec.pl.daggerexample
 
 import android.app.Application
-import android.util.Log
 import marzec.pl.daggerexample.di.AppComponent
 import marzec.pl.daggerexample.di.DaggerAppComponent
-import marzec.pl.daggerexample.di.UserName
-import javax.inject.Inject
 
 class App : Application() {
 
@@ -13,6 +10,6 @@ class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        appComponent = DaggerAppComponent.create()
+        appComponent = DaggerAppComponent.builder().application(this).build()
     }
 }
