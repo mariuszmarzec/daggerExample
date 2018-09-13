@@ -1,26 +1,21 @@
 package marzec.pl.daggerexample.di
 
-import android.app.Application
 import dagger.*
+import marzec.pl.daggerexample.App
 import marzec.pl.daggerexample.ui.hello.HelloActivityComponent
+import marzec.pl.daggerexample.ui.main.BaseComponent
 import marzec.pl.daggerexample.ui.main.MainActivityComponent
 import javax.inject.Singleton
 
 
 @Singleton
 @Component(modules = [AppModule::class])
-interface AppComponent {
+interface AppComponent : BaseComponent<App> {
 
     @Component.Builder
-    interface Builder {
-        @BindsInstance
-        fun application(application: Application): Builder
-        fun build(): AppComponent
+    interface Builder : BaseComponent.BaseBuilder<App> {
+        override fun build(): AppComponent
     }
-
-    fun mainActivityComponent(): MainActivityComponent
-
-    fun helloActivityComponent(): HelloActivityComponent
 }
 
 

@@ -5,6 +5,8 @@ import marzec.pl.daggerexample.di.ActivityScope
 
 @ActivityScope
 @Subcomponent(modules = [MainActivityModule::class])
-interface MainActivityComponent {
-    fun inject(activity: MainActivity)
+interface MainActivityComponent : BaseComponent<MainActivity> {
+
+    @Subcomponent.Builder
+    interface Builder : BaseComponent.BaseBuilder<MainActivity>
 }

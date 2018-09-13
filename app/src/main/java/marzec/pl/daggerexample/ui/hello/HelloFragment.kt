@@ -21,7 +21,7 @@ class HelloFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        (activity as HelloActivity).helloActivityComponent.helloFragmentComponent().inject(this)
+        (activity as HelloActivity).fragmentBuilder.get().instance(this).build().inject(this)
 
         textView.text = helloWorld
     }

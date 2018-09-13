@@ -6,7 +6,7 @@ import dagger.Provides
 import marzec.pl.daggerexample.R
 import marzec.pl.daggerexample.di.ActivityScope
 
-@Module
+@Module(subcomponents = [HelloFragmentComponent::class])
 class HelloModule {
 
     @Provides
