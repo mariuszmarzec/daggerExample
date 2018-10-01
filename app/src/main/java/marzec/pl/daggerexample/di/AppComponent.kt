@@ -1,21 +1,17 @@
 package marzec.pl.daggerexample.di
 
 import dagger.*
+import dagger.android.AndroidInjector
+import dagger.android.support.AndroidSupportInjectionModule
 import marzec.pl.daggerexample.App
-import marzec.pl.daggerexample.ui.hello.HelloActivityComponent
-import marzec.pl.daggerexample.ui.main.BaseComponent
-import marzec.pl.daggerexample.ui.main.MainActivityComponent
 import javax.inject.Singleton
 
 
 @Singleton
-@Component(modules = [AppModule::class])
-interface AppComponent : BaseComponent<App> {
+@Component(modules = [AndroidSupportInjectionModule::class, AppModule::class, ActivityBuilder::class])
+interface AppComponent : AndroidInjector<App> {
 
     @Component.Builder
-    interface Builder : BaseComponent.BaseBuilder<App> {
-        override fun build(): AppComponent
-    }
+    abstract class Builder : AndroidInjector.Builder<App>()
 }
-
 
